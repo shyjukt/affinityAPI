@@ -1,0 +1,53 @@
+package com.affinity.qas.domain; 
+
+		
+ 
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="QA_EVENT_USER_TYPE_MAST")
+ 
+public class QaEventUserTypeMast {
+  
+
+
+		@Id 
+
+	@Column(name="TYPE_CODE")
+
+		private String typeCode;
+
+		public String getTypeCode() {
+		return typeCode;
+		}
+	
+
+		public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
+		}
+	
+
+	@Column(name="TYPE_DESC")
+
+		private String typeDesc;
+
+		public String getTypeDesc() {
+		return typeDesc;
+		}
+	
+
+		public void setTypeDesc(String typeDesc) {
+		this.typeDesc = typeDesc;
+		}
+	
+
+	}
+	
+  
