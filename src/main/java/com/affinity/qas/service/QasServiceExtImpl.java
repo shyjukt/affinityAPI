@@ -151,7 +151,55 @@ public class QasServiceExtImpl implements QasServiceExt {
 	@Override
 	public List <QaEventsCollVew>  listQaEvents(QaEventSearchCriteria qaeventsearchcriteria )
 			{
+		String whereStr="";
+		if  (qaeventsearchcriteria.getEventNo() !=null )
+		{
+			whereStr = whereStr + " and "+ "p.eventNo=:eventNo" ;
+		}
 		
+		if  (qaeventsearchcriteria.getEventCategory() !=null )
+		{
+			whereStr = whereStr + " and "+ "p.eventCategory=:eventCategory" ;
+		}
+
+		if  (qaeventsearchcriteria.getEventSubCategory() !=null )
+		{
+			whereStr = whereStr + " and "+ "p.eventSubCategory=:eventSubCategory" ;
+		}
+
+		if  (qaeventsearchcriteria.getEventDept() !=null )
+		{
+			whereStr = whereStr + " and "+ "p.eventDept=:eventDept" ;
+		}
+
+		if  (qaeventsearchcriteria.getEventLocation() !=null )
+		{
+			whereStr = whereStr + " and "+ "p.eventLocation=:eventLocation" ;
+		}
+
+		if  (qaeventsearchcriteria.getEventStatus() !=null )
+		{
+			whereStr = whereStr + " and "+ "p.eventStatus=:eventStatus" ;
+		}
+
+		if  (qaeventsearchcriteria.getCreatedBy() !=null )
+		{
+			whereStr = whereStr + " and "+ "p.createdBy=:createdBy" ;
+		}
+
+		if  (qaeventsearchcriteria.getFromTime() !=null )
+		{
+			whereStr = whereStr + " and "+ "p.createdTime>=:fromTime " ;
+		}
+		
+		if  (qaeventsearchcriteria.getToTime() !=null )
+		{
+			whereStr = whereStr + " and "+ "p.createdTime<=:toTime" ;
+		}
+		//-----
+		
+
+		/*
 	    String jpql = "select p from QaEventsCollVew p "
 	    		+ "where ( p.eventNo=:eventNo or :eventNo is null)"
 	    		+ "and ( p.eventCategory=:eventCategory or :eventCategory is null)"
@@ -160,12 +208,41 @@ public class QasServiceExtImpl implements QasServiceExt {
 	    		+ "and ( p.eventLocation=:eventLocation or :eventLocation is null)"
 	    		+ "and ( p.eventStatus=:eventStatus or :eventStatus is null)"
 				+ "and ( p.createdBy=:createdBy or :createdBy is null)"
-				+ "and ( p.createdTime>=:fromDate or :fromDate is null)"
-				+ "and ( p.createdTime<=:toDate or :toDate is null)"
+				+ "and ( p.createdTime>=:fromTime or :fromTime is null)"
+				+ "and ( p.createdTime<=:toTime or :toTime is null)"
 	    		;
-	     
+	    		*/
+		String jpql = "select p from QaEventsCollVew p ";
+		
+		if (whereStr!="")
+		{
+		
+			whereStr = " where " + whereStr.substring(5);
+				
+			jpql = "select p from QaEventsCollVew p " +whereStr;
+			
+	
+		}
+	
+		
+		/* -- cast functio to convert data types CAST(D."Cluster" AS VARCHAR(5)
+	    String jpql = "select p from QaEventsCollVew p "
+	    		+ "where   p.eventNo= COALESCE (to_char(:eventNo), p.eventNo) "
+	    		+ "and   p.eventCategory=COALESCE (to_number(:eventCategory),p.eventCategory)"
+	    		+ "and   p.eventSubCategory=COALESCE (to_number(:eventSubCategory) ,eventSubCategory)"
+	    		+ "and  p.eventDept=COALESCE (to_number(:eventDept) ,p.eventDept )"
+	    		+ "and   p.eventLocation=COALESCE (to_number(:eventLocation),p.eventLocation)"
+	    		+ "and   p.eventStatus=COALESCE (to_number(:eventStatus) ,p.eventStatus)"
+				+ "and   p.createdBy=COALESCE (to_number(:createdBy) , p.createdBy)"
+				+ "and   p.createdTime>=COALESCE (:fromDate ,p.createdTime )"
+				+ "and   p.createdTime<=COALESCE (:toDate ,p.createdTime)"
+	    		;
+	     */
+	    
 	    Query query = entityManager.createQuery(jpql);
 
+
+			/*
 		query.setParameter("eventNo",qaeventsearchcriteria.getEventNo());
 		query.setParameter("eventCategory",qaeventsearchcriteria.getEventCategory());		
 		query.setParameter("eventSubCategory",qaeventsearchcriteria.getEventSubCategory());		
@@ -173,11 +250,63 @@ public class QasServiceExtImpl implements QasServiceExt {
 		query.setParameter("eventLocation",qaeventsearchcriteria.getEventLocation());		
 		query.setParameter("eventStatus",qaeventsearchcriteria.getEventStatus());		
 		query.setParameter("createdBy",qaeventsearchcriteria.getCreatedBy());		
-		query.setParameter("fromDate",qaeventsearchcriteria.getFromTime());
-		query.setParameter("toDate",qaeventsearchcriteria.getToTime());
+		query.setParameter("fromTime",qaeventsearchcriteria.getFromTime());
+		query.setParameter("toTime",qaeventsearchcriteria.getToTime());
+		
+			 */
+		
+		if  (qaeventsearchcriteria.getEventNo() !=null )
+		{
+			query.setParameter("eventNo",qaeventsearchcriteria.getEventNo());
+		}
+		
+		if  (qaeventsearchcriteria.getEventCategory() !=null )
+		{
+			query.setParameter("eventCategory",qaeventsearchcriteria.getEventCategory());	
+		}
+
+		if  (qaeventsearchcriteria.getEventSubCategory() !=null )
+		{
+			query.setParameter("eventSubCategory",qaeventsearchcriteria.getEventSubCategory());	
+		}
+
+		if  (qaeventsearchcriteria.getEventDept() !=null )
+		{
+			query.setParameter("eventDept",qaeventsearchcriteria.getEventDept());
+		}
+
+		if  (qaeventsearchcriteria.getEventLocation() !=null )
+		{
+			query.setParameter("eventLocation",qaeventsearchcriteria.getEventLocation());	
+		}
+
+		if  (qaeventsearchcriteria.getEventStatus() !=null )
+		{
+			query.setParameter("eventStatus",qaeventsearchcriteria.getEventStatus());		
+		}
+
+		if  (qaeventsearchcriteria.getCreatedBy() !=null )
+		{
+			query.setParameter("createdBy",qaeventsearchcriteria.getCreatedBy());
+		}
+
+		if  (qaeventsearchcriteria.getFromTime() !=null )
+		{
+			query.setParameter("fromTime",qaeventsearchcriteria.getFromTime());
+		}
+		
+		if  (qaeventsearchcriteria.getToTime() !=null )
+		{
+			query.setParameter("toTime",qaeventsearchcriteria.getToTime());
+		}		
 		
 		List <QaEventsCollVew>  result = query.getResultList();
-	    	
+
+
+		System.out.println("**********************************************************************");
+		System.out.println(whereStr);
+		System.out.println("**********************************************************************");
+
      return result;
 
 	}

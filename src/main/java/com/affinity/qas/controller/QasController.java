@@ -148,6 +148,13 @@ package com.affinity.qas.controller;
 			return qasService.deleteQaSubCategoryMast(subCatCode );
 	}
 		
+	@PreAuthorize("hasRole('ROLE_cancelEventApproval')")
+	@RequestMapping(value = "/cancelEventApproval", 	method = RequestMethod.GET)
+    public @ResponseBody QaEventsCollVew  cancelEventApproval(@RequestParam Integer eventId )
+	{
+			return qasserviceextService.cancelEventApproval(eventId );
+	}
+			
 	@PreAuthorize("hasRole('ROLE_getQaEvent')")
 	@RequestMapping(value = "/getQaEvent", 	method = RequestMethod.GET)
     public @ResponseBody QaEventsCollVew  getQaEvent(@RequestParam Integer eventId )
